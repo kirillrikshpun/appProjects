@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import AuthComponent from "./components/AuthComponent";
+import MainComponent from "./components/MainComponent";
 
 function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")) && navigate("/info")
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes>
+        <Route path="/" element={<AuthComponent />} />
+        <Route path="info" element={<MainComponent />} />
+      </Routes>
   );
 }
 
